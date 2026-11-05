@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bloom walk — 8-Bit Therapeutic Flower Companion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Official Mapbox GL JS -->
+  <link rel="stylesheet" href="/vendor/mapbox-gl/mapbox-gl.css" />
+  <script src="/vendor/mapbox-gl/mapbox-gl.js"></script>
+  <link rel="stylesheet" href="style.css?v=3">
+</head>
+<body>
+  <div class="desktop-wrapper">
+    <!-- Simulator Sidebar -->
+    <div class="brand-sidebar">
+      <div class="logo-box">
+        <span class="logo-icon">🌸</span>
+        <h1>Bloom walk</h1>
+      </div>
+      <p class="tagline">An 8-bit therapeutic companion for mindful walks in Vancouver, BC.</p>
+      
+      <div class="controls-panel">
+        <h3>🚶 Walk Simulator</h3>
+        <label for="step-slider">Simulated Steps Today: <strong id="step-count-display">1,250</strong></label>
+        <input type="range" id="step-slider" min="0" max="8000" step="250" value="1250">
+        
+        <label for="weather-select" style="margin-top: 14px;">Simulated Weather:</label>
+        <select id="weather-select">
+          <option value="sunny">☀️ Sunny (72°F)</option>
+          <option value="rainy">🌧️ Gentle Rain (60°F)</option>
+          <option value="cloudy">⛅ Overcast (65°F)</option>
+        </select>
+        <button id="refresh-map-btn" class="secondary-btn">Update Spawns</button>
+
+        <div class="token-config-box" style="margin-top: 16px; border-top: 1px dashed var(--green-border); padding-top: 12px;">
+          <label for="mapbox-token-input" style="font-size: 11px; font-weight: 700; color: var(--forest-dark-text); display: block; margin-bottom: 4px;">Mapbox Access Token (Optional):</label>
+          <div style="display: flex; gap: 6px;">
+            <input type="password" id="mapbox-token-input" placeholder="pk.eyJ1..." style="flex: 1; padding: 6px 8px; font-size: 11px; border-radius: 8px; border: 1px solid var(--green-border); background: var(--green-surface-subtle);" />
+            <button id="save-token-btn" class="secondary-btn" style="padding: 6px 10px; font-size: 11px;">Save</button>
+          </div>
+          <span style="font-size: 10px; color: var(--forest-muted-text); display: block; margin-top: 4px;">Works out-of-the-box via Mapbox GL JS engine with or without token.</span>
+        </div>
+      </div>
+
+      <div class="backend-status">
+        <span class="status-dot"></span>
+        <span>Connected to Single-Person SQLite DB</span>
+      </div>
+    </div>
+
+    <!-- Mobile Device Phone Frame -->
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      
+      <!-- Top Status Header (Title "Bloom walk" on left, Date next to Weather & Steps on right) -->
+      <div class="app-header">
+        <div class="header-left">
+          <span class="pixel-brand">🌸 Bloom walk</span>
+        </div>
+        <div class="header-right">
+          <span class="date-pill" id="header-date">Nov 5</span>
+          <span class="weather-pill" id="header-weather">☀️ 72°F</span>
+          <span class="steps-pill" id="header-steps">👟 1,250</span>
+        </div>
+      </div>
+
+      <!-- Main Screen Views Container -->
+      <main class="screens-container">
+        <!-- 1. HOME SCREEN -->
+        <section id="screen-home" class="screen active">
+          <div class="home-scroll-area">
+            
+            <!-- 1. FLOWER OF THE DAY (Top) -->
+            <div class="pixel-card flower-of-day-card">
+              <div class="card-badge">FLOWER OF THE DAY</div>
+              <div class="flower-preview-row">
+                <div class="sprite-circle" id="fotd-sprite-box">
+                  <span class="placeholder-sprite">🌻</span>
+                </div>
+                <div class="flower-text">
+                  <h3 id="fotd-name">Golden Sunflower</h3>
+                  <p class="species" id="fotd-species">Helianthus annuus</p>
+                  <p class="meaning" id="fotd-meaning">"Unwavering warmth, resilience, and looking toward the light."</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. "MY LITTLE GARDEN" CHECKERBOARD CARD (Centerpiece) -->
+            <div class="my-little-garden-card">
+              <div class="garden-card-header">
+                <h3>My little garden</h3>
+                <span class="blooms-counter" id="total-blooms-badge">0 blooms collected</span>
+              </div>
+
+              <!-- 6x4 Checkerboard Meadow Grid -->
+              <div class="garden-checkerboard" id="garden-grid">
+                <!-- 24 alternating tiles generated via JS -->
+              </div>
+
+              <div class="garden-card-footer">
+                <div class="footer-caption">
+                  <span class="leaf-icon">🌱</span>
+                  <span>Your pocket of spring</span>
+                </div>
+                <button class="garden-view-btn" id="open-roster-btn">Monthly Calendars ↗</button>
+              </div>
+            </div>
+
+            <!-- 3. MOTIVATIONAL QUOTE OF THE DAY (Underneath Garden) -->
+            <div class="pixel-card quote-card">
+              <span class="quote-mark">“</span>
+              <p class="quote-text" id="quote-text">To plant a garden is to believe in tomorrow.</p>
+              <p class="quote-author" id="quote-author">— Audrey Hepburn</p>
+            </div>
+
+            <!-- 4. CRISIS & SUPPORT CONTACTS ONLY (Direct Contacts, No Suggestions) -->
+            <div class="support-contacts-section">
+              <div class="contacts-header">
+                <span class="heart-icon">💙</span>
+                <h4>Support & Crisis Contacts</h4>
+              </div>
+              <div class="contacts-list" id="home-contacts-container">
+                <!-- Dynamically loaded hotlines only -->
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- 2. MAP SCREEN (Enhanced Mapbox with Vancouver Trails & Right-Sliding Drawer) -->
+        <section id="screen-map" class="screen">
+          <div id="mapbox-container"></div>
+          
+          <!-- Detailed Map HUD & Controls -->
+          <div class="map-overlay-hud">
+            <div class="hud-pill">
+              <span class="pulse-dot"></span>
+              <span>Stanley Park Seawall, Vancouver BC</span>
+            </div>
+          </div>
+
+          <div class="map-controls-floating">
+            <button class="map-ctrl-btn" id="map-tilt-btn" title="Toggle 3D View">3D</button>
+            <button class="map-ctrl-btn" id="map-recenter-btn" title="Recenter to Me">🎯</button>
+          </div>
+
+          <div class="map-legend">
+            <div class="legend-item"><span class="legend-dot uncollected"></span> Uncollected</div>
+            <div class="legend-item"><span class="legend-dot collected"></span> Collected</div>
+          </div>
+
+          <!-- SLIDING DRAWER FROM THE RIGHT (Flower Details & Pick Action) -->
+          <div id="drawer-backdrop" class="drawer-backdrop hidden"></div>
+          <div id="map-flower-drawer" class="side-drawer">
+            <div class="drawer-header">
+              <span class="drawer-title" id="drawer-header-title">🌸 Peaceful Chamomile</span>
+              <button class="drawer-close-btn" id="close-drawer-btn">✕</button>
+            </div>
+
+            <div class="drawer-content">
+              <!-- Organic floating sprite without square outline -->
+              <div class="drawer-sprite-wrapper">
+                <div class="floating-sprite" id="drawer-sprite">🌸</div>
+                <div class="weather-form-badge" id="drawer-weather-form">☀️ Radiant Form (Sunny)</div>
+              </div>
+              
+              <p id="drawer-flower-species" class="species">Matricaria chamomilla</p>
+
+              <!-- Location & Rarity Tags -->
+              <div class="drawer-tags-row">
+                <span class="drawer-loc-pill" id="drawer-location-tag">📍 Coal Harbour Seawall</span>
+                <span class="drawer-rarity-pill" id="drawer-rarity-tag">COMMON</span>
+              </div>
+
+              <!-- Weather Reaction Card -->
+              <div class="flower-form-card">
+                <div class="form-title" id="form-card-title">☀️ Weather Form</div>
+                <p class="form-desc" id="form-card-desc">Basking in sunny warmth, its petals are wide open and radiant.</p>
+              </div>
+              
+              <div class="drawer-meaning-box">
+                <h4>Floriography Lore</h4>
+                <p id="drawer-flower-meaning">"Calmness in chaos, soothing restless thoughts."</p>
+              </div>
+
+              <form id="drawer-collection-form">
+                <div class="form-group">
+                  <label>Your feeling right now:</label>
+                  <div class="mood-chips">
+                    <label class="chip"><input type="radio" name="mood" value="Peaceful" checked><span>🌿 Peaceful</span></label>
+                    <label class="chip"><input type="radio" name="mood" value="Joyful"><span>☀️ Joyful</span></label>
+                    <label class="chip"><input type="radio" name="mood" value="Grounded"><span>🪨 Grounded</span></label>
+                    <label class="chip"><input type="radio" name="mood" value="Reflective"><span>🌧️ Reflective</span></label>
+                  </div>
+                </div>
+
+                <button type="submit" class="primary-btn" id="drawer-submit-btn">Pick & Plant in Garden</button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. GARDEN SCREEN (List of Monthly Calendars with Daily Collected Flowers) -->
+        <section id="screen-garden" class="screen">
+          <div class="garden-scroll-area">
+            <div class="garden-header">
+              <h2>Garden Calendars</h2>
+              <p class="subtitle">Your monthly chronicle of flowers collected each day</p>
+            </div>
+
+            <!-- List of Monthly Calendars -->
+            <div id="monthly-calendars-list" class="monthly-calendars-container">
+              <!-- Dynamically populated monthly calendar cards (Nov 2026, Oct 2026...) -->
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- Bottom Navigation Bar (Home, Map, Garden) -->
+      <nav class="bottom-nav">
+        <button class="nav-tab active" data-target="screen-home">
+          <span class="nav-icon">🏠</span>
+          <span class="nav-label">Home</span>
+        </button>
+        <button class="nav-tab" data-target="screen-map">
+          <span class="nav-icon">🗺️</span>
+          <span class="nav-label">Map</span>
+        </button>
+        <button class="nav-tab" data-target="screen-garden">
+          <span class="nav-icon">🌸</span>
+          <span class="nav-label">Garden</span>
+        </button>
+      </nav>
+
+      <!-- MODAL 1: Daily Bouquet & Multi-Flower List Expansion -->
+      <div id="day-bouquet-modal" class="modal-backdrop hidden">
+        <div class="modal-card bouquet-modal-card">
+          <button class="modal-close-btn" id="close-bouquet-btn">✕</button>
+          
+          <div class="bouquet-header-area">
+            <span class="bouquet-badge" id="bouquet-modal-date-badge">NOVEMBER 5, 2026</span>
+            <h2 id="bouquet-modal-title">🌸 Daily Bouquet</h2>
+            <div class="bouquet-stats-row">
+              <span class="hud-tag" id="bouquet-flower-count">2 blooms found</span>
+              <span class="hud-tag" id="bouquet-total-steps">👟 4,500 steps</span>
+              <span class="hud-tag" id="bouquet-weather">☀️ Sunny</span>
+            </div>
+            <p class="bouquet-journal-quote" id="bouquet-journal-display" style="display: none;"></p>
+          </div>
+
+          <!-- List of ALL flowers found on this day -->
+          <div class="day-flowers-heading">
+            <h4>Flowers Found on This Day</h4>
+            <span class="subtext">Tap any bloom to inspect lore & meaning</span>
+          </div>
+
+          <div class="day-flowers-list" id="day-flowers-list-container">
+            <!-- Dynamically populated flower cards -->
+          </div>
+        </div>
+      </div>
+
+      <!-- MODAL 2: Flower Detail Inspection -->
+      <div id="flower-detail-modal" class="modal-backdrop hidden">
+        <div class="modal-card detail-modal-card">
+          <button class="modal-close-btn" id="close-detail-btn">✕</button>
+          <div class="detail-sprite-container" id="detail-sprite-box">🌸</div>
+          <h2 id="detail-flower-name">Golden Sunflower</h2>
+          <p class="species" id="detail-flower-species">Helianthus annuus</p>
+          <div class="detail-rarity-pill" id="detail-rarity">COMMON BLOOM</div>
+          
+          <div class="detail-meaning-card">
+            <h4>Floriography Meaning</h4>
+            <p id="detail-meaning">"Unwavering warmth, resilience, and looking toward the light."</p>
+          </div>
+
+          <div class="detail-meta-grid" id="detail-meta-grid">
+            <!-- Filled dynamically -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="app.js?v=3"></script>
+</body>
+</html>

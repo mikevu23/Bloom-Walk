@@ -1,0 +1,17 @@
+{
+  "name": "bloomwalk-backend",
+  "version": "1.0.0",
+  "description": "Backend API for 8-bit therapeutic flower collecting app",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node --experimental-sqlite src/server.js",
+    "dev": "node --watch --experimental-sqlite src/server.js",
+    "seed": "node --experimental-sqlite src/db/seed.js",
+    "test": "node --test --experimental-sqlite tests/api.test.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.1"
+  }
+}

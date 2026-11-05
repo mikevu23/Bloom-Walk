@@ -1,0 +1,1473 @@
+:root {
+  /* Lush Nature Palette (Varying Harmonious Shades of Green) */
+  --green-bg-app: #E5EFE2;
+  --green-surface-card: #D9E8D5;
+  --green-surface-subtle: #CFE2CB;
+  --green-border: #B2CAB0;
+  --green-border-dark: #98B595;
+  
+  --forest-dark-text: #1C331B;
+  --forest-muted-text: #4E684C;
+  
+  --primary-moss-btn: #416A3E;
+  --primary-moss-hover: #325530;
+  
+  --accent-sunflower: #D99B26;
+  --accent-blue-call: #2563EB;
+  
+  --garden-plot-bg: #CFE3CA;
+  --tile-light: #BFD8B9;
+  --tile-dark: #AFCBA8;
+  
+  --card-shadow: 0 4px 12px rgba(28, 51, 27, 0.08);
+  --pixel-font: 'Press Start 2P', monospace;
+  --body-font: 'Plus Jakarta Sans', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--body-font);
+  background-color: #D3E2CE;
+  color: var(--forest-dark-text);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.desktop-wrapper {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  max-width: 960px;
+  width: 100%;
+}
+
+/* Sidebar branding & simulator controls */
+.brand-sidebar {
+  flex: 1;
+  background: var(--green-bg-app);
+  padding: 28px;
+  border-radius: 24px;
+  box-shadow: 0 8px 24px rgba(28, 51, 27, 0.08);
+  border: 1px solid var(--green-border);
+}
+
+.logo-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.logo-icon {
+  font-size: 32px;
+}
+
+.logo-box h1 {
+  font-family: var(--pixel-font);
+  font-size: 16px;
+  color: var(--forest-dark-text);
+}
+
+.tagline {
+  font-size: 14px;
+  color: var(--forest-muted-text);
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.controls-panel {
+  background: var(--green-surface-card);
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid var(--green-border);
+  margin-bottom: 20px;
+}
+
+.controls-panel h3 {
+  font-family: var(--pixel-font);
+  font-size: 11px;
+  color: var(--forest-dark-text);
+  margin-bottom: 12px;
+}
+
+.controls-panel label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--forest-dark-text);
+  margin-bottom: 6px;
+}
+
+.controls-panel input[type="range"] {
+  width: 100%;
+  accent-color: var(--primary-moss-btn);
+}
+
+.controls-panel select {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: var(--green-surface-subtle);
+  border: 1px solid var(--green-border);
+  color: var(--forest-dark-text);
+  font-family: var(--body-font);
+  margin-bottom: 12px;
+}
+
+.backend-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--primary-moss-btn);
+  font-weight: 600;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary-moss-btn);
+  box-shadow: 0 0 8px var(--primary-moss-btn);
+}
+
+/* Mobile Phone Frame */
+.phone-frame {
+  width: 390px;
+  height: 780px;
+  background: var(--green-bg-app);
+  border-radius: 46px;
+  box-shadow: 0 24px 60px rgba(28, 51, 27, 0.22), 0 0 0 10px #1E2D1D;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.phone-notch {
+  width: 120px;
+  height: 20px;
+  background: #1E2D1D;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  z-index: 100;
+}
+
+/* Header (Top-Left: "🌸 Bloom walk") */
+.app-header {
+  padding: 28px 16px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #DCEAD8;
+  border-bottom: 1px solid var(--green-border);
+  z-index: 10;
+}
+
+.pixel-brand {
+  font-family: var(--pixel-font);
+  font-size: 10px;
+  color: var(--forest-dark-text);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.header-right {
+  display: flex;
+  gap: 6px;
+}
+
+.weather-pill, .steps-pill, .date-pill {
+  font-size: 11px;
+  font-weight: 600;
+  background: var(--green-surface-subtle);
+  padding: 4px 8px;
+  border-radius: 12px;
+  border: 1px solid var(--green-border);
+  color: var(--forest-dark-text);
+}
+
+/* Screens */
+.screens-container {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  background: var(--green-bg-app);
+  z-index: 1;
+  transition: opacity 0.15s ease;
+}
+
+.screen.active {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 2;
+}
+
+.home-scroll-area, .garden-scroll-area {
+  height: 100%;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Cards */
+.pixel-card {
+  background: var(--green-surface-card);
+  border: 1px solid var(--green-border);
+  border-radius: 18px;
+  padding: 14px 16px;
+  box-shadow: var(--card-shadow);
+}
+
+/* 1. Flower of the Day Card */
+.flower-of-day-card {
+  border-left: 4px solid var(--accent-sunflower);
+}
+
+.card-badge {
+  font-family: var(--pixel-font);
+  font-size: 8px;
+  color: var(--accent-sunflower);
+  margin-bottom: 8px;
+}
+
+.flower-preview-row {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.sprite-circle {
+  width: 56px;
+  height: 56px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 38px;
+  border: none;
+  filter: drop-shadow(0 3px 6px rgba(28, 51, 27, 0.15));
+}
+
+.flower-text h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--forest-dark-text);
+}
+
+.flower-text .species {
+  font-size: 11px;
+  font-style: italic;
+  color: var(--forest-muted-text);
+  margin-bottom: 2px;
+}
+
+.flower-text .meaning {
+  font-size: 11.5px;
+  color: var(--forest-dark-text);
+  line-height: 1.35;
+}
+
+/* 2. "MY LITTLE GARDEN" CHECKERBOARD CARD */
+.my-little-garden-card {
+  background: var(--garden-plot-bg);
+  border-radius: 22px;
+  padding: 16px;
+  border: 1px solid var(--green-border);
+  box-shadow: var(--card-shadow);
+}
+
+.garden-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.garden-card-header h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--forest-dark-text);
+}
+
+.blooms-counter {
+  font-size: 12px;
+  color: var(--forest-muted-text);
+  font-weight: 600;
+}
+
+/* 6x4 Checkerboard Grid */
+.garden-checkerboard {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 1.5px;
+  background: var(--green-border-dark);
+  border: 1.5px solid var(--green-border-dark);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.garden-tile {
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+  user-select: none;
+}
+
+.garden-tile.tile-light {
+  background: var(--tile-light);
+}
+
+.garden-tile.tile-dark {
+  background: var(--tile-dark);
+}
+
+.garden-tile:hover {
+  transform: scale(1.15);
+  z-index: 5;
+}
+
+.garden-tile.has-flower {
+  filter: drop-shadow(0 2px 4px rgba(28, 51, 27, 0.15));
+}
+
+.garden-tile.empty-sprout {
+  font-size: 12px;
+  opacity: 0.65;
+}
+
+/* Garden Card Footer */
+.garden-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 4px;
+}
+
+.footer-caption {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--forest-muted-text);
+  font-weight: 600;
+}
+
+.leaf-icon {
+  font-size: 14px;
+}
+
+.garden-view-btn {
+  background: none;
+  border: none;
+  font-family: var(--body-font);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--forest-dark-text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.garden-view-btn:hover {
+  text-decoration: underline;
+}
+
+/* 3. Motivational Quote Card */
+.quote-card {
+  position: relative;
+}
+
+.quote-mark {
+  font-family: var(--pixel-font);
+  font-size: 18px;
+  color: var(--primary-moss-btn);
+  opacity: 0.4;
+}
+
+.quote-text {
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.45;
+  margin-bottom: 4px;
+}
+
+.quote-author {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--forest-muted-text);
+  text-align: right;
+}
+
+/* 4. Support Contacts Section (Direct Contacts Only) */
+.support-contacts-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.contacts-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.contacts-header .heart-icon {
+  font-size: 13px;
+}
+
+.contacts-header h4 {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--forest-dark-text);
+}
+
+.contacts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contact-card {
+  background: var(--green-surface-card);
+  border: 1px solid var(--green-border);
+  border-radius: 14px;
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.contact-info h5 {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--forest-dark-text);
+  margin-bottom: 2px;
+}
+
+.contact-info p {
+  font-size: 10.5px;
+  color: var(--forest-muted-text);
+}
+
+.contact-action-btn {
+  background: #2563EB;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.contact-action-btn:hover {
+  background: #1D4ED8;
+}
+
+/* Map Screen & Map Controls */
+#screen-map {
+  position: relative;
+  overflow: hidden;
+}
+
+#mapbox-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.map-overlay-hud {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 10;
+}
+
+.hud-pill {
+  background: rgba(229, 239, 226, 0.94);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--green-border);
+  padding: 6px 12px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--forest-dark-text);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: #2563EB;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #2563EB;
+}
+
+.map-controls-floating {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 10;
+}
+
+.map-ctrl-btn {
+  width: 34px;
+  height: 34px;
+  background: rgba(229, 239, 226, 0.94);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--green-border);
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 11px;
+  color: var(--forest-dark-text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+
+.map-ctrl-btn:hover {
+  background: var(--green-surface-card);
+}
+
+.map-legend {
+  position: absolute;
+  bottom: 16px;
+  left: 14px;
+  background: rgba(229, 239, 226, 0.94);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--green-border);
+  border-radius: 12px;
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--forest-dark-text);
+  z-index: 10;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.legend-dot.uncollected {
+  background: var(--primary-moss-btn);
+}
+
+.legend-dot.collected {
+  background: var(--accent-sunflower);
+}
+
+/* Player Proximity Aura */
+.user-puck-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-puck-halo {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(37, 99, 235, 0.18);
+  border: 1.5px dashed rgba(37, 99, 235, 0.45);
+  animation: auraPulse 2.4s infinite ease-out;
+}
+
+@keyframes auraPulse {
+  0% { transform: scale(0.85); opacity: 0.9; }
+  50% { transform: scale(1.2); opacity: 0.4; }
+  100% { transform: scale(0.85); opacity: 0.9; }
+}
+
+/* Leaflet DivIcon Resets */
+.leaflet-div-icon,
+.leaflet-flower-icon,
+.leaflet-user-puck-container {
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Custom Map Flower Markers */
+.pixel-map-marker {
+  width: 42px;
+  height: 42px;
+  background: var(--green-surface-card);
+  border: 2px solid var(--primary-moss-btn);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(28, 51, 27, 0.2);
+  transition: transform 0.15s ease;
+}
+
+.pixel-map-marker:hover {
+  transform: scale(1.25);
+}
+
+.pixel-map-marker.collected {
+  border-color: var(--accent-sunflower);
+  background: #E8F0E4;
+  opacity: 0.88;
+}
+
+.pixel-map-marker.locked {
+  filter: grayscale(1);
+  opacity: 0.5;
+}
+
+/* ============================================================ */
+/* GARDEN SCREEN: SCROLLABLE LIST OF MONTHLY CALENDARS          */
+/* ============================================================ */
+.monthly-calendars-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.month-calendar-card {
+  background: var(--green-surface-card);
+  border: 1px solid var(--green-border);
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: var(--card-shadow);
+}
+
+.month-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.month-title {
+  font-family: var(--pixel-font);
+  font-size: 11px;
+  color: var(--forest-dark-text);
+}
+
+.month-summary-badge {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--primary-moss-btn);
+  background: var(--green-surface-subtle);
+  padding: 3px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--green-border);
+}
+
+/* 7-column weekday row */
+.cal-grid-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--forest-muted-text);
+  margin-bottom: 6px;
+}
+
+/* 7-column calendar days matrix */
+.cal-grid-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+}
+
+.cal-day-cell {
+  aspect-ratio: 1 / 1.15;
+  background: var(--green-surface-subtle);
+  border: 1px solid var(--green-border);
+  border-radius: 8px;
+  padding: 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: transform 0.1s ease, border-color 0.1s ease;
+  position: relative;
+}
+
+.cal-day-cell.empty-pad {
+  background: transparent;
+  border: none;
+  cursor: default;
+}
+
+.cal-day-cell:hover:not(.empty-pad) {
+  transform: scale(1.1);
+  border-color: var(--primary-moss-btn);
+  z-index: 5;
+}
+
+.cal-day-num {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--forest-dark-text);
+  align-self: flex-start;
+  margin-left: 2px;
+}
+
+.cal-bloom-icons {
+  font-size: 13px;
+  line-height: 1;
+  display: flex;
+  gap: 1px;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
+}
+
+.cal-step-star {
+  font-size: 7px;
+  color: var(--accent-sunflower);
+  position: absolute;
+  top: 2px;
+  right: 2px;
+}
+
+.cal-day-cell.has-blooms {
+  background: var(--garden-plot-bg);
+  border-color: var(--primary-moss-btn);
+}
+
+/* ============================================================ */
+/* SLIDING DRAWER FROM THE RIGHT (Map Flower Details)           */
+/* ============================================================ */
+.drawer-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(28, 51, 27, 0.4);
+  backdrop-filter: blur(3px);
+  z-index: 110;
+  opacity: 1;
+  transition: opacity 0.25s ease;
+}
+
+.drawer-backdrop.hidden {
+  display: none;
+  opacity: 0;
+}
+
+.side-drawer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 86%;
+  height: 100%;
+  background: var(--green-bg-app);
+  border-top-left-radius: 26px;
+  border-bottom-left-radius: 26px;
+  border-left: 1px solid var(--green-border);
+  box-shadow: -10px 0 30px rgba(28, 51, 27, 0.18);
+  z-index: 120;
+  transform: translateX(105%);
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.side-drawer.open {
+  transform: translateX(0);
+}
+
+.drawer-header {
+  padding: 22px 18px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--green-border);
+  background: #DCEAD8;
+  border-top-left-radius: 26px;
+}
+
+.drawer-title {
+  font-family: var(--pixel-font);
+  font-size: 10px;
+  color: var(--forest-dark-text);
+}
+
+.drawer-close-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--forest-muted-text);
+}
+
+.drawer-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 18px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Organic floating sprite without square outline */
+.drawer-sprite-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 6px 0 2px;
+}
+
+.floating-sprite {
+  font-size: 58px;
+  line-height: 1;
+  filter: drop-shadow(0 6px 12px rgba(28, 51, 27, 0.2));
+  animation: floatBreathing 3s ease-in-out infinite;
+}
+
+@keyframes floatBreathing {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-4px) scale(1.04); }
+  100% { transform: translateY(0); }
+}
+
+.weather-form-badge {
+  margin-top: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 12px;
+  background: var(--green-surface-subtle);
+  border: 1px solid var(--green-border);
+  color: var(--forest-dark-text);
+}
+
+.drawer-content .species {
+  font-size: 12px;
+  text-align: center;
+  font-style: italic;
+  color: var(--forest-muted-text);
+  margin-top: -2px;
+}
+
+/* Location & Rarity Tags */
+.drawer-tags-row {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 2px 0;
+}
+
+.drawer-loc-pill {
+  font-size: 11px;
+  font-weight: 600;
+  background: var(--green-surface-card);
+  border: 1px solid var(--green-border);
+  padding: 4px 10px;
+  border-radius: 10px;
+  color: var(--forest-dark-text);
+}
+
+.drawer-rarity-pill {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 4px 8px;
+  border-radius: 10px;
+  background: #FDE68A;
+  color: #92400E;
+  letter-spacing: 0.5px;
+}
+
+/* Weather Form Card */
+.flower-form-card {
+  background: var(--green-surface-card);
+  border: 1px solid var(--green-border);
+  border-radius: 14px;
+  padding: 10px 12px;
+}
+
+.flower-form-card .form-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--primary-moss-btn);
+  margin-bottom: 2px;
+}
+
+.flower-form-card .form-desc {
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--forest-dark-text);
+}
+
+.drawer-meaning-box {
+  background: var(--green-surface-card);
+  border: 1px solid var(--green-border);
+  border-radius: 14px;
+  padding: 10px 12px;
+}
+
+.drawer-meaning-box h4 {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--primary-moss-btn);
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.drawer-meaning-box p {
+  font-size: 11.5px;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--forest-dark-text);
+}
+
+.drawer-req-pill {
+  background: var(--green-surface-subtle);
+  border: 1px solid var(--green-border);
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-size: 11px;
+  color: var(--forest-muted-text);
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Form inputs */
+.form-group {
+  margin-top: 4px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--forest-dark-text);
+  margin-bottom: 6px;
+}
+
+.mood-chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.chip input {
+  display: none;
+}
+
+.chip span {
+  display: inline-block;
+  padding: 6px 10px;
+  background: var(--green-surface-subtle);
+  border: 1px solid var(--green-border);
+  border-radius: 10px;
+  font-size: 11px;
+  color: var(--forest-dark-text);
+  cursor: pointer;
+}
+
+.chip input:checked + span {
+  background: var(--primary-moss-btn);
+  color: white;
+  border-color: var(--primary-moss-btn);
+}
+
+textarea {
+  width: 100%;
+  height: 60px;
+  padding: 10px;
+  border-radius: 12px;
+  background: var(--green-surface-subtle);
+  border: 1px solid var(--green-border);
+  font-family: var(--body-font);
+  font-size: 12px;
+  color: var(--forest-dark-text);
+  resize: none;
+}
+
+.primary-btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--primary-moss-btn);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  margin-top: 4px;
+  box-shadow: 0 4px 12px rgba(65, 106, 62, 0.25);
+}
+
+.primary-btn:hover {
+  background: var(--primary-moss-hover);
+}
+
+.secondary-btn {
+  padding: 8px 14px;
+  background: var(--green-surface-subtle);
+  border: 1px solid var(--green-border);
+  border-radius: 10px;
+  font-weight: 600;
+  color: var(--forest-dark-text);
+  cursor: pointer;
+  font-size: 12px;
+}
+
+/* Bottom Navigation */
+.bottom-nav {
+  height: 64px;
+  background: #DCEAD8;
+  border-top: 1px solid var(--green-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 20;
+}
+
+.nav-tab {
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  color: var(--forest-muted-text);
+  padding: 6px 16px;
+  border-radius: 12px;
+  transition: all 0.1s ease;
+}
+
+.nav-tab.active {
+  color: var(--primary-moss-btn);
+  font-weight: bold;
+}
+
+.nav-icon {
+  font-size: 18px;
+}
+
+.nav-label {
+  font-family: var(--pixel-font);
+  font-size: 7px;
+}
+
+/* Detail Inspection Modal */
+.modal-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(28, 51, 27, 0.45);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: flex-end;
+  z-index: 150;
+  transition: opacity 0.2s ease;
+}
+
+#day-bouquet-modal {
+  z-index: 150;
+}
+
+#flower-detail-modal {
+  z-index: 200;
+}
+
+.modal-backdrop.hidden {
+  display: none;
+}
+
+.modal-card {
+  width: 100%;
+  background: var(--green-bg-app);
+  border-top-left-radius: 28px;
+  border-top-right-radius: 28px;
+  padding: 24px 20px 32px;
+  border: 1px solid var(--green-border);
+  position: relative;
+  max-height: 85%;
+  overflow-y: auto;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--forest-muted-text);
+}
+
+.detail-modal-card {
+  text-align: center;
+}
+
+.detail-sprite-container {
+  width: 72px;
+  height: 72px;
+  background: transparent;
+  border: none;
+  margin: 0 auto 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 52px;
+  filter: drop-shadow(0 4px 8px rgba(28, 51, 27, 0.2));
+}
+
+.detail-modal-card h2 {
+  font-size: 18px;
+  color: var(--forest-dark-text);
+}
+
+.detail-modal-card .species {
+  font-size: 12px;
+  font-style: italic;
+  color: var(--forest-muted-text);
+  margin-bottom: 6px;
+}
+
+.detail-rarity-pill {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 8px;
+  background: var(--green-surface-subtle);
+  color: var(--forest-dark-text);
+  margin-bottom: 14px;
+}
+
+.detail-meaning-card {
+  background: var(--green-surface-card);
+  border: 1px solid var(--green-border);
+  border-radius: 14px;
+  padding: 12px;
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+.detail-meaning-card h4 {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--primary-moss-btn);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.detail-meaning-card p {
+  font-size: 12px;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--forest-dark-text);
+}
+
+.detail-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  text-align: left;
+}
+
+.meta-item {
+  background: var(--green-surface-card);
+  border: 1px solid var(--green-border);
+  border-radius: 10px;
+  padding: 8px 10px;
+}
+
+.meta-item .meta-label {
+  font-size: 10px;
+  color: var(--forest-muted-text);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.meta-item .meta-value {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--forest-dark-text);
+}
+
+/* ============================================================ */
+/* DAY BOUQUET & MULTI-FLOWER LIST EXPANSION MODAL             */
+/* ============================================================ */
+.bouquet-modal-card {
+  text-align: left;
+}
+
+.bouquet-header-area {
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--green-border);
+}
+
+.bouquet-badge {
+  font-family: var(--pixel-font);
+  font-size: 8px;
+  color: var(--accent-sunflower);
+  letter-spacing: 0.5px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.bouquet-modal-card h2 {
+  font-size: 17px;
+  color: var(--forest-dark-text);
+  margin-bottom: 8px;
+}
+
+.bouquet-stats-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.hud-tag {
+  font-size: 10px;
+  font-weight: 600;
+  background: var(--green-surface-subtle);
+  border: 1px solid var(--green-border);
+  padding: 4px 8px;
+  border-radius: 10px;
+  color: var(--forest-dark-text);
+}
+
+.bouquet-journal-quote {
+  margin-top: 10px;
+  font-size: 11.5px;
+  font-style: italic;
+  color: var(--forest-muted-text);
+  line-height: 1.4;
+  background: var(--green-surface-card);
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--green-border);
+}
+
+.day-flowers-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 10px;
+}
+
+.day-flowers-heading h4 {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--forest-dark-text);
+}
+
+.day-flowers-heading .subtext {
+  font-size: 9.5px;
+  color: var(--forest-muted-text);
+}
+
+.day-flowers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 320px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.day-flower-item-card {
+  background: var(--green-surface-card);
+  border: 1px solid var(--green-border);
+  border-radius: 14px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.day-flower-item-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(28, 51, 27, 0.1);
+  border-color: var(--primary-moss-btn);
+}
+
+.flower-item-sprite-box {
+  width: 44px;
+  height: 44px;
+  background: var(--green-surface-subtle);
+  border: 1px solid var(--green-border);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  flex-shrink: 0;
+}
+
+.flower-item-info {
+  flex: 1;
+}
+
+.flower-item-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+
+.flower-item-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--forest-dark-text);
+}
+
+.flower-item-rarity {
+  font-size: 8px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: #FDE68A;
+  color: #92400E;
+}
+
+.flower-item-species {
+  font-size: 10.5px;
+  font-style: italic;
+  color: var(--forest-muted-text);
+  margin-bottom: 4px;
+}
+
+.flower-item-meta {
+  display: flex;
+  gap: 8px;
+  font-size: 10px;
+  color: var(--forest-dark-text);
+  flex-wrap: wrap;
+}
+
+.flower-item-arrow {
+  font-size: 14px;
+  color: var(--forest-muted-text);
+}
+
+/* Calendar multi-bloom layout */
+.cal-bloom-icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+}
+
+.cal-bloom-badge {
+  font-size: 8px;
+  font-weight: 700;
+  background: var(--primary-moss-btn);
+  color: white;
+  border-radius: 6px;
+  padding: 0 3px;
+  line-height: 12px;
+}
+
+/* Mapbox GL Canvas & Markers */
+.mapboxgl-map {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.mapboxgl-canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.mapboxgl-ctrl-bottom-right {
+  bottom: 60px !important;
+  right: 14px !important;
+}
+
+/* Mapbox Token Prompt Overlay */
+.map-token-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(229, 239, 226, 0.94);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 20px;
+}
+
+.token-modal-content {
+  background: var(--green-surface-card);
+  border: 1px solid var(--green-border);
+  border-radius: 20px;
+  padding: 22px 18px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(28, 51, 27, 0.15);
+  max-width: 310px;
+  width: 100%;
+}
